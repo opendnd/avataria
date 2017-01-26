@@ -1,5 +1,9 @@
 # Avataria
 
+[![NPM](https://nodei.co/npm/avataria.png?downloads=true&stars=true)](https://nodei.co/npm/avataria/)
+
+![demo](doc/demo.gif)
+
 This is a tool for randomly generating avatars for use in character sheets.
 
 ## Installation
