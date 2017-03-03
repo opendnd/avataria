@@ -1,6 +1,6 @@
 {
   "name": "avataria",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A package for generating random avatars for Open DnD",
   "homepage": "https://github.com/opendnd/avataria",
   "bugs": {
