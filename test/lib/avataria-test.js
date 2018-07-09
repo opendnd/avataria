@@ -1,49 +1,47 @@
+/* eslint-disable */
 const expect = require('chai').expect;
 const fs = require('fs');
 const path = require('path');
 const rootDir = path.join(__dirname, '..', '..');
 const libDir = path.join(rootDir, 'lib');
 const binDir = path.join(rootDir, 'bin');
+const tmpDir = path.join(rootDir, 'tmp');
 const spawn = require('child_process').spawn;
 let avataria;
+let filepath;
 
 describe('avataria', () => {
   describe('bin', () => {
     before((done) => {
       const options = [
-        '--species', 'dragonborn', 
+        '--race', 'dragonborn', 
         '--gender', 'male',
-        '--output', 'test',
+        '--output', './tmp',
       ];
       avataria = spawn(path.join(binDir, 'avataria'), options);
+      avataria.stdout.on('data', (data) => {
+        const output = `${data}`;
+        filepath = output.replace('Saving avatar to ', '').replace('...', '').replace('tmp/', '');
+      });
       avataria.on('close', () => {
         done();
       });
     });
 
     it('creates an avatar', () => {
-      const filepath = path.join(rootDir, 'test.png');
-      const result = fs.existsSync(filepath);
-      
-      // expectation
-      expect(result).to.eq(true);
-
-      // cleanup
-      fs.unlinkSync(filepath);
+      expect(filepath.length).to.be.above(1);
     });
   });
 
   describe('module', () => {
     before(() => {
-      avataria = require(path.join(libDir, 'avataria'));
+      const Avataria = require(path.join(libDir, 'avataria'));
+      avataria = new Avataria();
     });
 
-    it('creates an avatar', (done) => {
-      avataria({}, (err, results) => {
-        expect(results.ascii.length).to.be.above(1);
-        expect(results.base64.length).to.be.above(1);
-        done();
-      });
+    it('creates an avatar', () => {
+      const avatar = avataria.generate({})
+      expect(avatar.length).to.be.above(1);
     });
   });
 });
