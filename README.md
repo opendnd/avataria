@@ -2,8 +2,6 @@
 
 [![NPM](https://nodei.co/npm/avataria.png?downloads=true&stars=true)](https://nodei.co/npm/avataria/)
 
-![demo](doc/demo.gif)
-
 This is a tool for randomly generating avatars for use in character sheets.
 
 ## Installation
@@ -20,56 +18,65 @@ Once you have installed avataria you can generate an avatar by simply running th
 
 ## Options
 
-### Species
+### race
 
-`avataria --species human`
+`avataria --race human`
 
-Currently there are two species available, __human__ and __dragonborn__.
+Currently there are 9 race available:
 
-![human](doc/human.png)
-![dragonborn](doc/dragonborn.png)
+#### Dragonborn
+![dragonborn-male](doc/dragonborn-male.svg)![dragonborn-female](doc/dragonborn-female.svg)
+
+#### Dwarf
+![dwarf-male](doc/dwarf-male.svg)![dwarf-female](doc/dwarf-female.svg)
+
+#### Elf
+![elf-male](doc/elf-male.svg)![elf-female](doc/elf-female.svg)
+
+#### Gnome
+![gnome-male](doc/gnome-male.svg)![gnome-female](doc/gnome-female.svg)
+
+#### Half-Elf
+![half-elf-male](doc/half-elf-male.svg)![half-elf-female](doc/half-elf-female.svg)
+
+#### Half-Orc
+![half-orc-male](doc/half-orc-male.svg)![half-orc-female](doc/half-orc-female.svg)
+
+#### Halfling
+![halfling-male](doc/halfling-male.svg)![halfling-female](doc/halfling-female.svg)
+
+#### Human
+![human-male](doc/human-male.svg)![human-female](doc/human-female.svg)
+
+#### Tiefling
+![tiefling-male](doc/tiefling-male.svg)![tiefling-female](doc/tiefling-female.svg)
 
 ### Gender
 
 `avataria --gender male`
 
-You can specify a gender by setting either `male` or `female` (or for convenience `m` / `f`)
+You can specify a gender by setting either `male` or `female`
 
 ## Module Usage
 
 ```javascript
-const avataria = require('avataria');
+const Avataria = require('avataria');
 
 // specify options, none are required
-const options = {
-  species: 'human',
+const opts = {
+  race: 'Human',
   gender: 'male',
-  hair: 'brown',
-  skin: 'pale',
-  eye: 'blue'
 };
 
 // call the method
-avataria(options, (err, results) => {
-  const { raw, base64, ascii } = results;
-  console.log(ascii);
-});
+const avataria = new Avataria();
+const avatar = avataria.generate(opts);
 ```
 
 ### Options
 
-- __Species__: defaults to random, you can set the species to either __dragonborn__ or __human__
+- __Race__: defaults to random, you can set the race to any available
 - __Gender__: defaults to random, you can set the gender to either __male__ or __female__
-- __Size__: defaults to `128`, unit is pixels
-- __Hair__: defaults to random, you can input a hair color that is available (see data/__species__-colors.json)
-- __Skin__: defaults to random, you can input a skin color that is available (see data/__species__-colors.json)
-- __Eye__: defaults to random, you can input a eye color that is available (see data/__species__-colors.json)
-
-### Output
-
-- __raw__: This is the raw PNG buffer
-- __base64__: This is the buffer converted to base64 for usage in `data:image/png;base64`
-- __ascii__: An ASCII representation of the avatar
 
 ## License
 
