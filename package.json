@@ -1,33 +1,48 @@
 {
-  "name": "avataria",
+  "name": "@opendnd/avataria",
   "version": "0.4.1",
   "description": "A package for generating random avatars for Open DnD",
   "homepage": "https://github.com/opendnd/avataria",
   "bugs": {
     "url": "https://github.com/opendnd/avataria/issues"
   },
-  "main": "lib/avataria.js",
+  "main": "dist/avataria.js",
   "bin": {
     "avataria": "./bin/avataria"
   },
+  "scripts": {
+    "start": "bin/avataria",
+    "prebuild": "rimraf dist",
+    "build": "tsc --declaration",
+    "prepublish": "npm run build",
+    "lint": "tslint src/**/*.ts",
+    "env:dev": "cross-env NODE_ENV=development",
+    "env:prod": "cross-env NODE_ENV=production",
+    "test": "mocha -c -S -R spec --compilers ts:ts-node/register --check-leaks",
+    "test:watch": "yarn test -- -w"
+  },
   "dependencies": {
+    "@opendnd/core": "^0.2.4",
+    "@opendnd/genetica": "^0.6.0",
     "colors": "^1.1.2",
     "commander": "^2.9.0",
     "genetica": "^0.4.1",
     "pngjs": "^3.0.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.1",
     "chai": "^3.5.0",
     "eslint": "^5.1.0",
     "eslint-config-airbnb-base": "^11.1.0",
     "eslint-plugin-import": "^2.13.0",
-    "mocha": "^5.2.0"
-  },
-  "scripts": {
-    "start": "node ./lib/avataria.js",
-    "test": "npm run test:mocha && npm run test:lint",
-    "test:mocha": "./node_modules/mocha/bin/mocha --reporter spec 'test/**/*.js'",
-    "test:lint": "./node_modules/eslint/bin/eslint.js ."
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.4",
+    "yarn": "^1.10.1"
   },
   "keywords": [
     "avatar",
